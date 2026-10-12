@@ -20,7 +20,7 @@ import { openai } from '@ai-sdk/openai';
 import pdfParse from 'pdf-parse';
 
 const PDF_PATH = path.join(process.cwd(), 'data', 'MCU Case Study.pdf');
-const CHUNK_SIZE = 800;
+const CHUNK_SIZE = 400;
 const CHUNK_OVERLAP = 100;
 
 type Chunk = { text: string; page: number };

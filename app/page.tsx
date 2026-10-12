@@ -29,6 +29,20 @@ export default function Page() {
     useChat({
       api: '/api/chat',
       maxSteps: 3,
+      fetch: async (input, init) => {
+        const res = await fetch(input, init);
+        if (!res.ok) {
+          let detail = `Chat failed (${res.status})`;
+          try {
+            const data = (await res.json()) as { error?: string };
+            if (data?.error) detail = data.error;
+          } catch {
+            // Keep the status fallback when the body is not JSON.
+          }
+          throw new Error(detail);
+        }
+        return res;
+      },
     });
 
   const busy = status === 'submitted' || status === 'streaming';
